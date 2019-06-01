@@ -1,0 +1,13 @@
+Quero saber como inicializar um vetor de ponteiros com `NULL` em `C`. O que eu tentei foi compilar o código abaixo com `gcc -m64 -std=c11 -pedantic -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes token.c`, cujo resultado foi compilar sem nenhum aviso/erro com `gcc version 6.3.0`.
+
+Pelo que eu sei, se um vetor de caracteres for inicializado com `\0` ele inicializa todos os valores do vetor para `\0`
+
+ 
+
+       #include <stdio.h>
+        int main(void){
+            int *arr[10]={NULL};
+            for(int i=0; i<10; i++)
+                printf("Ponteiro %d=%p\n",i, (void *)arr[i]);
+        return 0;
+        }

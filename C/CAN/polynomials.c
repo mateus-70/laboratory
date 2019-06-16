@@ -1,30 +1,54 @@
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
+#include <stdlib.h>
 
-#define MAX_ORDER 5
+#define SIZE_MAX 20
 
-double lpoly[MAX_ORDER + 1][MAX_ORDER + 1]={{0}}; // a_0 + a_1 + ... a_n \n b_0 ... b_n ...
-
-void poly_add(double p1[], double p2[], double* result, int size ){
-    for(int i=0; i<size; i++)
-        result[i]=p1[i] + p2[i];
+void poly_add(double* p1, double* p2, double* result){
+    // limpar a variavel result
+    for(int i=0; i<SIZE_MAX; i++)
+        result[i]=0;
+    for(int i=0; i<SIZE_MAX; i++)
+        result[i] = p1[i] + p2[i];
 }
 
-void poly_mult(double p1[], double p2[], double* result, int size ){
-    double temp[size]={0};
-    for(int i=0; i<size; i++)
-        for(int j=0; j<size; j++){
-        
+void poly_mult(double* p1, double* p2, double* result){
+    // limpar a variavel result
+    for(int i=0; i<SIZE_MAX; i++)
+        result[i]=0;
+
+    double temp[SIZE_MAX]={0};
+    for(int i=0; i<SIZE_MAX; i++){
+        for(int j=0; j<SIZE_MAX; j++){
+            if(i+j < SIZE_MAX){
+                temp[i+j] += p1[i] * p2[j];
+            }else{
+                assert(p1[i] * p2[j] < 0.000001);
+            }
         }
+    }
+    for(int i=0; i<SIZE_MAX; i++)
+        result[i]=temp[i];
 }
 
-void find_poly(void){
-    lpoly[0][0]=lpoly[1][1]=1; // 
-    // (j+1)P_{j+1} = (2j+1)xP_j - jP_{j-1}
-    
+//int main(void){
+//    double v1[SIZE_MAX]={0, 2, 3}, v2[SIZE_MAX]={0,0,6};
+//
+//    double add_vector[SIZE_MAX]={0}; // Necessário inicializar antes de chamar a funcao
+//    poly_add(v1, v2, add_vector);
+//    printf("Add:\n");
+//    for(int i=0; i<SIZE_MAX; i++){
+//        if(fabs(add_vector[i]) > 0.000001)
+//            printf("%.0lf*x^%d\n", add_vector[i], i);
+//    }
+//    //puts("Multiplicacao\n\n\n\n");
+//
+//    double mult_vector[SIZE_MAX]={0}; // Necessário inicializar antes de chamar a funcao
+//    poly_mult(v1, v2, mult_vector);
+//    printf("\nMult:\n");
+//    for(int i=0; i<SIZE_MAX; i++)
+//        if(fabs(mult_vector[i]) > 0.000001)
+//            printf("%.0lf*x^%d\n", mult_vector[i], i);
+//}
 
-}
-
-int main(void){
-    
-}
